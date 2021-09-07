@@ -1,0 +1,32 @@
+.container {
+  font-size: 16px;
+  padding: calc(10vh) calc(8vw);
+  :global {
+    .am-list-item.am-input-item {
+      //padding-left: 0;
+      padding: 5px 10px;
+    }
+    .am-list-item .am-list-line {
+      padding-right: 0;
+    }
+    .am-list-item:not(:last-child) .am-list-line {
+      //border-bottom: 0
+    }
+    .am-button-small {
+      padding: 0
+    }
+    .am-list-line::after {
+      content: '';
+      background-color: white !important;
+    }
+  }
+  .btns{
+    padding-top: 50px;
+  }
+  .notices{
+    padding-bottom: 30px;
+  }
+
+
+
+}

@@ -1,0 +1,37 @@
+{
+ "entry": {
+    "index": "./src/index.js",
+    "vendor": [
+        "react",
+        "react-dom",
+        "dva",
+        "react-router",
+        "prop-types",
+        "lodash",
+        "classnames"
+      ]
+  },
+  "proxy": {
+    "/api": {
+      "target": "http://47.104.131.153:8085",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api/" : "" }
+    }
+  },
+ "extraBabelPlugins": [
+         ["import", { "libraryName": "antd-mobile", "style": true }]
+    ],
+ "env": {
+    "development": {
+      "extraBabelPlugins": [
+        "dva-hmr"
+      ]
+    }
+  },
+  "manifest": {
+    "basePath": "/"
+  },
+  "hash":false,
+  "ignoreMomentLocale":true,
+  "publicPath": "/"
+}
