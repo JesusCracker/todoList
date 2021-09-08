@@ -13,7 +13,7 @@
   },
   "proxy": {
     "/api": {
-      "target": "http://47.104.131.153:8085",
+      "target": "http://192.168.6.147:9999",
       "changeOrigin": true,
       "pathRewrite": { "^/api/" : "" }
     }

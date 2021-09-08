@@ -1,6 +1,6 @@
 .container {
   font-size: 16px;
-  padding: calc(10vh) calc(8vw);
+  padding: calc(5vh) calc(5vw);
   :global {
     .am-list-item.am-input-item {
       //padding-left: 0;
@@ -15,9 +15,18 @@
     .am-button-small {
       padding: 0
     }
+    .am-list-item .am-input-label {
+      font-size: 14px;
+      //text-align: right;
+      color: #333
+    }
+
+    .am-list-item .am-input-control input {
+      font-size: 14px;
+    }
     .am-list-line::after {
-      content: '';
-      background-color: white !important;
+      //content: '';
+      //background-color: white !important;
     }
   }
   .btns{
@@ -25,6 +34,8 @@
   }
   .notices{
     padding-bottom: 30px;
+  }
+  .myPrice{
   }
 
 
