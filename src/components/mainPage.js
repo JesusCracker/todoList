@@ -10,6 +10,7 @@ const MainPage = (props) => {
     const dispatch = useDispatch();
     const {form: {getFieldProps, getFieldError}, location} = props;
     const queryParams = queryString.parse(location.search);
+    const {account, serialCode, giftCode} = queryParams;
 
     const {mainPage: {userInfo}} = useSelector(
         ({
@@ -24,9 +25,6 @@ const MainPage = (props) => {
         shallowEqual);
 
 
-    /*     if (Object.keys(queryParams).indexOf('phoneNo') === -1 || Object.keys(queryParams).indexOf('userName') === -1 || Object.keys(queryParams).indexOf('address') === -1) {
-             Toast.fail('参数不完整', 1);
-         } else {*/
     useEffect(() => {
         dispatch({
             type: "mainPage/fetchUserInfo",
@@ -34,11 +32,12 @@ const MainPage = (props) => {
                 ...queryParams
             }
         });
-    }, []);
-    // }
+    }, [account, serialCode, giftCode]);
 
 
-    const {account, address, applyDate, giftCode, giftName, phoneNo, serialCode, userName} = userInfo;
+    const {address, applyDate, giftName, phoneNo, userName} = userInfo;
+
+    let initGiftName = queryParams.giftName;
 
     //提交信息
     const handleData = () => {
@@ -46,14 +45,13 @@ const MainPage = (props) => {
         const {getFieldsValue} = props.form;
         const {...params} = getFieldsValue(['userName', 'phoneNo', 'address']);
 
-        if (Object.values(params).indexOf(undefined) !== -1) {
-            Toast.fail('填写信息不为空', 1);
+        if (Object.values(params).indexOf('') !== -1) {
+            Toast.fail('填写信息不为空', 1.5);
             return;
         }
-
         params.phoneNo = params.phoneNo && params.phoneNo.replace(/\s*/g, "")
         const regs = /^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/;
-        if(!regs.test(params.phoneNo)){
+        if (!regs.test(params.phoneNo)) {
             Toast.fail('手机号输入不合法', 1.5);
             return;
         }
@@ -68,10 +66,7 @@ const MainPage = (props) => {
             if (res.data.code === '200') {
                 Toast.success('申请成功！');
             }
-
         });
-
-
     };
 
     //重置
@@ -134,20 +129,15 @@ const MainPage = (props) => {
                 >地址 :</InputItem>
 
                 <InputItem
-
+                    style={{color: 'red'}}
                     {...getFieldProps('giftTemp', {
-                        initialValue: giftName || '',
+                        initialValue: giftName || initGiftName || '',
                     })}
                     editable={false}
+
                 >我的奖品 :</InputItem>
 
             </List>
-
-            {/*       <Card className={styles.myPrice}>
-                <Card.Body>
-                    <div>我的奖品:</div>
-                </Card.Body>
-            </Card>*/}
 
             <Flex justify="center" align={"center"} className={styles.btns}>
                 <Flex.Item justify="center" align={"center"}>
@@ -167,5 +157,19 @@ const MainPage = (props) => {
         </div>
     );
 }
+
+MainPage.defaultProps = {
+    userInfo: {
+        account: undefined,
+        address: undefined,
+        applyDate: undefined,
+        giftCode: undefined,
+        giftName: undefined,
+        phoneNo: undefined,
+        serialCode: undefined,
+        userName: undefined
+    },
+}
+
 
 export default MainPage;

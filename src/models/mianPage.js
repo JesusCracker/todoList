@@ -6,11 +6,14 @@ export default {
 
     state: {
         userInfo: {
-            data:{
-                code:'',
-                data:{},
-                msg:'',
-            }
+            account: undefined,
+            address: undefined,
+            applyDate: undefined,
+            giftCode: undefined,
+            giftName: undefined,
+            phoneNo: undefined,
+            serialCode: undefined,
+            userName: undefined
         },
     },
 
@@ -40,7 +43,7 @@ export default {
         saveUser(state, action) {
             return {
                 ...state,
-                userInfo: action.payload.data.data,
+                userInfo: action.payload.data.data !== null && action.payload.data.data,
             };
         },
     },
